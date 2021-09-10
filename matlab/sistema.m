@@ -1,11 +1,12 @@
 %Prueba de sistema tipo feedback simple 1 
+%Por Josue Rojas
 
 %declaración de parametros de espera y de la función logística
-T = 0.1;
-tau1 = 0.05;
-tau2 = 0.03;
+T = 3;
+tau1 = 5;
+tau2 = 2.5;
 x0 = 6;
-k = 1.5;
+k = 1;
 R = 3;
 
 %{
@@ -33,11 +34,20 @@ producto de la entrada por la salida. Hacemos producto de función de
 transferencia logística por el sistema generado
 %}
 K = S*sys;
-
+%{
+Actualizacion 8/9
+Agregamos X,Y arreglos que simulan ejes con la ecuación logistica de
+pupil1.ipynb , con C generamos una matriz de length(X)
+ x 2 para el archivo Simulink
+%}
+X= linspace(0,10,2000);
+Y = logistico(X,k,x0,R);
+C = [transpose(X) Y];
 stepplot(K)
 
 %{
 Notas: 
+-Ejecutar sistema y luego correr archivo sistema_sml 
 -La señal en el sistema 'sys' parece acercarse al valor .5, y por la funcion
 'S' el sistema resultante se va hacia .5*x0, sin embargo no sigue un
 comportamiento cíclico como el artículo propone.
