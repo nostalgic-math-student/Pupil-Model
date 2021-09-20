@@ -2,12 +2,12 @@
 %Por Josue Rojas
 
 %declaración de parametros de espera y de la función logística
-T = 3;
-tau1 = 5;
-tau2 = 2.5;
-x0 = 6;
-k = 1;
-R = 3;
+T =0;
+tau1 = 0.001  ;
+tau2 = 0.007;
+x0 = 10;
+k = 0.5;
+R = 4;
 
 %{
 la arquitectura de este sistema es un simple ciclo cerrado de feedback con
@@ -19,7 +19,6 @@ bloque de feedback C como se expresa en el artículo
 Den = conv([tau1,1],[tau2,1]);
 G = tf(1,Den,'InputDelay',T);
 C = tf([1],[tau1,1]);
-
 %Creamos función de transferencia con forma logística
 s = tf('s');
 S = (R*x0)/(x0 + (R-x0)*exp(-k*s));
@@ -42,7 +41,8 @@ pupil1.ipynb , con C generamos una matriz de length(X)
 %}
 X= linspace(0,10,2000);
 Y = logistico(X,k,x0,R);
-C = [transpose(X) Y];
+Z =logistico(X,1,2,0.5);
+C = [transpose(X) Z];
 stepplot(K)
 
 %{
